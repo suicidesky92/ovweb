@@ -1,0 +1,35 @@
+#file = open('/etc/openvpn/server.conf','r')
+#serverconf = file.read().split('\n')
+
+
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def get_stat():
+    file = open('/var/log/openvpn/status.log','r')
+    statusconf = file.read().split('\n')
+    file.close()
+    return str(statusconf)
+
+
+@app.route('/rt')
+def get_routingtable():
+    file = open('/var/log/openvpn/status.log','r')
+    statusconf = file.read().split('\n')
+    file.close()
+    routingtable = statusconf[len(statusconf)//2+1:-4]
+    return str(routingtable)
+
+
+@app.route('/cl')
+def get_clientlist():
+    file = open('/var/log/openvpn/status.log','r')
+    statusconf = file.read().split('\n')
+    file.close()
+    clientlist = statusconf[:-int(len(statusconf)//2+1)-1]
+    return str(clientlist)
+
+if __name__ == '__main__':
+    app.run()
+
