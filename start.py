@@ -1,5 +1,7 @@
 #file = open('/etc/openvpn/server.conf','r')
 #serverconf = file.read().split('\n')
+#file = open('/etc/openvpn/easy-rsa/pki/index.txt','r')
+
 
 
 from flask import Flask
